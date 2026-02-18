@@ -1,0 +1,3 @@
+site_name: clr-librenms-mcp
+nav:
+  - Overview: index.md
