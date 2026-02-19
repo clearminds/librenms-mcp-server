@@ -527,11 +527,13 @@ def main() -> None:
     parser.add_argument("--librenms-token", type=str, default=None)
     args = parser.parse_args()
 
-    # CLI args override env vars
+    creds = settings.load_credentials()
+
+    # CLI args override everything
     transport = args.transport or settings.librenms_transport
     log_level = args.log_level or settings.librenms_log_level
-    librenms_url = args.librenms_url or settings.librenms_url
-    librenms_token = args.librenms_token or settings.librenms_token
+    librenms_url = args.librenms_url or creds.get("url", "")
+    librenms_token = args.librenms_token or creds.get("token", "")
 
     logging.config.dictConfig(
         {
